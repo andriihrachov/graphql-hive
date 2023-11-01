@@ -154,7 +154,11 @@ const action: Action = async (exec, _query, isGraphQLHiveCloud) => {
   `);
 
   await exec(`
-    RENAME TABLE default.clients_daily TO default.clients_daily_old, default.clients_daily_new TO default.clients_daily
+    RENAME TABLE default.clients_daily TO default.clients_daily_old
+  `);
+
+  await exec(`
+    RENAME TABLE default.clients_daily_new TO default.clients_daily
   `);
 
   await Promise.all([

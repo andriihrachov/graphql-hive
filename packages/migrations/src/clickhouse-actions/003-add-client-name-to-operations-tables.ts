@@ -228,9 +228,13 @@ const action: Action = async (exec, _query, isGraphQLHiveCloud) => {
 
   await exec(`
     RENAME TABLE
-      default.operations_daily TO default.operations_daily_old,
-      default.operations_daily_new TO default.operations_daily
+      default.operations_daily TO default.operations_daily_old
   `);
+
+  await exec(`
+  RENAME TABLE
+    default.operations_daily_new TO default.operations_daily
+`);
 
   await exec(`
     INSERT INTO
@@ -268,7 +272,11 @@ const action: Action = async (exec, _query, isGraphQLHiveCloud) => {
 
   await exec(`
     RENAME TABLE
-      default.operations_hourly TO default.operations_hourly_old,
+      default.operations_hourly TO default.operations_hourly_old
+  `);
+
+  await exec(`
+    RENAME TABLE
       default.operations_hourly_new TO default.operations_hourly
   `);
 
